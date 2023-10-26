@@ -170,6 +170,24 @@ INNER JOIN
 SELECT product_id, SUM(val) OVER (PARTITION BY product_id ORDER BY order_id) AS sum
 FROM products;
 -- there are also ROW_NUMBER(), RANK(), DENSE_RANK(), LEAD(), LAG(), FIRST_VALUE(), NTH_VALUE(), NTILE() to use
+-- PARTITION BY:
+-- Purpose: PARTITION BY allows you to split the result set into smaller groups (or "windows") and apply the window function independently to each group. It's used when you want to compute statistics, such as the average salary for each department, within each group
+-- Necessity: Whether or not you need this clause depends on the requirement of the query. If you want to apply a uniform window calculation across the entire result set, you don't need it. If you need to perform calculations group-wise, then you must use it
+-- ORDER BY:
+-- Purpose: ORDER BY determines the order of data within the window. Many window functions, such as ROW_NUMBER(), LEAD(), LAG(), etc., rely on the ordering of the data
+-- Necessity: For window functions that consider the order of data (like LEAD(), LAG(), ROW_NUMBER(), and others), ORDER BY is essential. But if you're just computing a grouped sum or average without regard to ordering, you can omit it
+-- if you want to compute the average salary for each department
+SELECT department, AVG(salary) OVER (PARTITION BY department)
+FROM employees;
+-- if you want to compute the overall average salary for all employees
+SELECT department, AVG(salary) OVER ()
+FROM employees;
+-- if you want to rank employees within each department by salary
+SELECT department, salary, ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC)
+FROM employees;
+-- if you want to see the difference in salary between each employee and the next when ranked by salary across the entire company
+SELECT employee_name, salary, LAG(salary) OVER (ORDER BY salary DESC) - salary
+FROM employees;
 
 -- if else statement (conditional logic)
 SELECT 
@@ -179,6 +197,9 @@ SELECT
     ELSE col2_val
     END AS new_col2_name
 FROM table2_name;
+
+-- if null
+IFNULL(expression, value_to_return_if_expression_is_NULL)
 
 -- operators
 =
