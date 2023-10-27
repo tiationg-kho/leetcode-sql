@@ -8,8 +8,8 @@
 | 004 | [595. Big Countries](https://leetcode.com/problems/big-countries/)                                                           | [MySQL](595-big-countries.sql)                              |
 | 005 | [175. Combine Two Tables](https://leetcode.com/problems/combine-two-tables/)                                                 | [MySQL](175-combine-two-tables.sql)                         |
 | 006 | [584. Find Customer Referee](https://leetcode.com/problems/find-customer-referee/)                                           | [MySQL](584-find-customer-referee.sql)                      |
-| 007 | [197]()                                                                                                                      | [MySQL]()                                                   |
-| 008 | [177]()                                                                                                                      | [MySQL]()                                                   |
+| 007 | [197. Rising Temperature](https://leetcode.com/problems/rising-temperature/)                                                 | [MySQL](197-rising-temperature.sql)                         |
+| 008 | [177. Nth Highest Salary](https://leetcode.com/problems/nth-highest-salary/)                                                 | [MySQL](177-nth-highest-salary.sql)                         |
 | 009 | [570]()                                                                                                                      | [MySQL]()                                                   |
 | 010 | [185]()                                                                                                                      | [MySQL]()                                                   |
 | 011 | [182. Duplicate Emails](https://leetcode.com/problems/duplicate-emails/)                                                     | [MySQL](182-duplicate-emails.sql)                           |

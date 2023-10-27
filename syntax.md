@@ -242,8 +242,11 @@ DATE_SUB(date, INTERVAL NUM UNIT)
 DATE_FORMAT(date, PATTERN)
 -- eg. DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s') will format the date in the 'YYYY-MM-DD HH:MM:SS' pattern
 
--- conversion
+-- date conversion
 STR_TO_DATE(STRING, PATTERN)
 DATE(STRING)
+
+-- date diff
+DATEDIFF(end_date, start_date)
 ```
 
