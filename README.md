@@ -14,8 +14,8 @@
 | 010 | [185. Department Top Three Salaries](https://leetcode.com/problems/department-top-three-salaries/)                           | [MySQL](185-department-top-three-salaries.sql)              |
 | 011 | [182. Duplicate Emails](https://leetcode.com/problems/duplicate-emails/)                                                     | [MySQL](182-duplicate-emails.sql)                           |
 | 012 | [184. Department Highest Salary](https://leetcode.com/problems/department-highest-salary/)                                   | [MySQL](184-department-highest-salary.sql)                  |
-| 013 | [196]()                                                                                                                      | [MySQL]()                                                   |
-| 014 | [180]()                                                                                                                      | [MySQL]()                                                   |
+| 013 | [196. Delete Duplicate Emails](https://leetcode.com/problems/delete-duplicate-emails/)                                       | [MySQL](196-delete-duplicate-emails.sql)                    |
+| 014 | [180. Consecutive Numbers](https://leetcode.com/problems/consecutive-numbers/)                                               | [MySQL](180-consecutive-numbers.sql)                        |
 | 015 | [1148]()                                                                                                                     | [MySQL]()                                                   |
 | 016 | [1581]()                                                                                                                     | [MySQL]()                                                   |
 | 017 | [178]()                                                                                                                      | [MySQL]()                                                   |

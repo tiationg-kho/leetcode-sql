@@ -264,5 +264,16 @@ DATE(STRING)
 
 -- date diff
 DATEDIFF(end_date, start_date)
+
+-- deleting without a join
+DELETE FROM Person
+WHERE some_condition;
+
+-- deleting with a join
+DELETE p
+FROM Person p
+INNER JOIN SomeOtherTable t ON p.some_column = t.some_column
+WHERE some_condition;
+
 ```
 
