@@ -191,12 +191,28 @@ FROM employees;
 
 -- if else statement (conditional logic)
 SELECT 
-    col1_name, 
-    CASE col1_name
-    WHEN col1_val THEN col2_val
-    ELSE col2_val
-    END AS new_col2_name
-FROM table2_name;
+    name, 
+    status,
+    CASE status
+        WHEN 'active' THEN 'Currently in use'
+        WHEN 'inactive' THEN 'No longer in use'
+        WHEN 'pending' THEN 'Awaiting approval'
+        WHEN 'obsolete' THEN 'Outdated and not used'
+        ELSE 'Unknown status'
+    END AS status_description
+FROM products;
+
+SELECT 
+    name, 
+    grade,
+    CASE 
+        WHEN grade >= 90 THEN 'A'
+        WHEN grade >= 80 AND grade < 90 THEN 'B'
+        WHEN grade >= 70 AND grade < 80 THEN 'C'
+        WHEN grade >= 60 AND grade < 70 THEN 'D'
+        ELSE 'F'
+    END AS grade_letter
+FROM students;
 
 -- if null
 IFNULL(expression, value_to_return_if_expression_is_NULL)

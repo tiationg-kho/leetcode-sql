@@ -10,10 +10,10 @@
 | 006 | [584. Find Customer Referee](https://leetcode.com/problems/find-customer-referee/)                                           | [MySQL](584-find-customer-referee.sql)                      |
 | 007 | [197. Rising Temperature](https://leetcode.com/problems/rising-temperature/)                                                 | [MySQL](197-rising-temperature.sql)                         |
 | 008 | [177. Nth Highest Salary](https://leetcode.com/problems/nth-highest-salary/)                                                 | [MySQL](177-nth-highest-salary.sql)                         |
-| 009 | [570]()                                                                                                                      | [MySQL]()                                                   |
-| 010 | [185]()                                                                                                                      | [MySQL]()                                                   |
+| 009 | [570. Managers with at Least 5 Direct Reports](https://leetcode.com/problems/managers-with-at-least-5-direct-reports/)       | [MySQL](570-managers-with-at-least-5-direct-reports.sql)    |
+| 010 | [185. Department Top Three Salaries](https://leetcode.com/problems/department-top-three-salaries/)                           | [MySQL](185-department-top-three-salaries.sql)              |
 | 011 | [182. Duplicate Emails](https://leetcode.com/problems/duplicate-emails/)                                                     | [MySQL](182-duplicate-emails.sql)                           |
-| 012 | [184]()                                                                                                                      | [MySQL]()                                                   |
+| 012 | [184. Department Highest Salary](https://leetcode.com/problems/department-highest-salary/)                                   | [MySQL](184-department-highest-salary.sql)                  |
 | 013 | [196]()                                                                                                                      | [MySQL]()                                                   |
 | 014 | [180]()                                                                                                                      | [MySQL]()                                                   |
 | 015 | [1148]()                                                                                                                     | [MySQL]()                                                   |
