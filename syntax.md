@@ -7,7 +7,7 @@ templates and execution order:
 4   GROUP BY col                    
 6   HAVING condition                
 8   ORDER BY col                    
-9   LIMIT count                     
+9   LIMIT count OFFSET offset;
 ```
 
 ```sql
@@ -53,6 +53,7 @@ ORDER BY col_name ASC;
 SELECT AVG(col_name)
 FROM table_name
 -- we can use AVG, MIN, MAX, SUM, COUNT
+-- COUNT does not count null values
 
 SELECT COUNT(DISTINCT col_name)
 FROM table_name;
@@ -68,7 +69,7 @@ SELECT col1_name, SUM(col2_name)
 FROM table_name
 GROUP BY col1_name
 HAVING condition;
--- the condition here will be involen the aggregate function
+-- the condition here will be involed the aggregate function
 -- eg. HAVING SUM(revenue) > 1500
 
 -- combining rows from two or more tables based on related columns
@@ -91,14 +92,6 @@ SELECT table1_name.col_name, table2_name.col_name
 FROM table1_name
 CROSS JOIN table2_name;
 -- we do not neeed join condition here
-
-CONCAT(col1_name, col2_name);
-SUBSTRING(col_name, idx, len);
-TRIM(string);
-LTRIM(string);
-RTRIM(string);
-LENGTH(string);
-REPLACE(string, pattern, replacement)
 
 SELECT col_name FROM table1_name
 UNION
@@ -124,51 +117,61 @@ SELECT col_name FROM table2_name;
 
 -- simple subquery
 -- can run on its own
--- is used to retrieve data required for the main query's condition or result
 -- is executed before the main query and provide results to the outer query
 -- simple subquery is independent of the outer query, and it return a single value or a set of values
-SELECT EmployeeName
-FROM Employees
-WHERE DepartmentID = (SELECT DepartmentID FROM Departments WHERE DepartmentName = 'Sales');
+SELECT 
+    s.id, 
+    s.salesperson_id, 
+    s.amount, 
+    total_sales.total_amount
+FROM sales s
+JOIN 
+    (SELECT salesperson_id, SUM(amount) AS total_amount
+     FROM sales
+     GROUP BY salesperson_id) total_sales
+ON s.salesperson_id = total_sales.salesperson_id;
 
 -- correlated subquery
 -- has dependencies on outer query
 -- the correlated subquery references a column from the outer query 
--- is executed for each row processed by the main query
 -- correlated subquery is executed for each row of the main query and depend on values from the outer query
 -- eg.
-SELECT EmployeeName, Salary
-FROM Employees e1
-WHERE Salary > (SELECT AVG(Salary) FROM Employees e2 WHERE e2.DepartmentID = e1.DepartmentID);
--- eg.
-SELECT *
-FROM Departments d
-WHERE NOT EXISTS (SELECT 1 FROM Employees e WHERE e.DepartmentID = d.DepartmentID);
+SELECT 
+    s.id, 
+    s.salesperson_id, 
+    s.amount,
+    (SELECT SUM(amount)
+     FROM sales
+     WHERE salesperson_id = s.salesperson_id) AS total_amount
+FROM sales s;
 
 -- common table expression (CTE)
 -- easily readable
 -- imporve performance
-WITH CTE AS (
-    SELECT
-        department_id,
-        AVG(salary) AS avg_salary
-    FROM
-        employees
-    GROUP BY
-        department_id
+WITH TotalSales AS (
+    SELECT 
+        salesperson_id, 
+        SUM(amount) AS total_amount
+    FROM sales
+    GROUP BY salesperson_id
 )
-SELECT
-    d.department_name,
-    CTE.avg_salary
-FROM
-    departments AS d
-INNER JOIN
-    CTE ON d.department_id = CTE.department_id;
+SELECT 
+    s.id, 
+    s.salesperson_id, 
+    s.amount,
+    ts.total_amount
+FROM sales s
+JOIN TotalSales ts 
+ON s.salesperson_id = ts.salesperson_id;
 
 -- window function
 -- won't change the original count of rows
-SELECT product_id, SUM(val) OVER (PARTITION BY product_id ORDER BY order_id) AS sum
-FROM products;
+SELECT 
+    id, 
+    salesperson_id, 
+    amount,
+    SUM(amount) OVER (PARTITION BY salesperson_id) AS total_amount
+FROM sales;
 -- there are also ROW_NUMBER(), RANK(), DENSE_RANK(), LEAD(), LAG(), FIRST_VALUE(), NTH_VALUE(), NTILE() to use
 -- PARTITION BY:
 -- Purpose: PARTITION BY allows you to split the result set into smaller groups (or "windows") and apply the window function independently to each group. It's used when you want to compute statistics, such as the average salary for each department, within each group
@@ -185,7 +188,7 @@ FROM employees;
 -- if you want to rank employees within each department by salary
 SELECT department, salary, ROW_NUMBER() OVER (PARTITION BY department ORDER BY salary DESC)
 FROM employees;
--- if you want to see the difference in salary between each employee and the next when ranked by salary across the entire company
+-- if you want to see the difference in salary between each employee and the next when ranked by salary across the entire company (LAG for getting previous row, LEAD for getting next row)
 SELECT employee_name, salary, LAG(salary) OVER (ORDER BY salary DESC) - salary
 FROM employees;
 
@@ -214,8 +217,9 @@ SELECT
     END AS grade_letter
 FROM students;
 
--- if null
-IFNULL(expression, value_to_return_if_expression_is_NULL)
+-- if
+IF(expression, value_to_return_if_expression_is_true, value_to_return_if_expression_is_false)
+IFNULL(val, value_to_return_if_val_is_null)
 
 -- operators
 =
@@ -233,10 +237,20 @@ AND
 OR
 NOT
 IS NULL
-BETWEEN
+BETWEEN AND
 IN
 LIKE
 EXISTS
+
+-- string related
+CONCAT(col1_name, col2_name);
+SUBSTRING(col_name, idx, len);
+TRIM(string);
+LTRIM(string);
+RTRIM(string);
+LENGTH(string);
+REPLACE(string, pattern, replacement)
+SUBSTRING_INDEX(string, delim, nth)
 
 -- time related
 -- current date and time
@@ -250,26 +264,39 @@ MONTH(date)
 DAY(date)
 
 -- date manipulation
-DATE_ADD(date, INTERVAL NUM UNIT)
-DATE_SUB(date, INTERVAL NUM UNIT)
+DATE_ADD(date, INTERVAL num unit)
+DATE_SUB(date, INTERVAL num unit)
 -- the unit can be values like DAY, MONTH, YEAR, HOUR, MINUTE, etc
 
 -- date formatting
-DATE_FORMAT(date, PATTERN)
+DATE_FORMAT(date, pattern)
 -- eg. DATE_FORMAT(NOW(), '%Y-%m-%d %H:%i:%s') will format the date in the 'YYYY-MM-DD HH:MM:SS' pattern
 
 -- date conversion
-STR_TO_DATE(STRING, PATTERN)
-DATE(STRING)
+STR_TO_DATE(string, pattern)
+DATE(string)
 
 -- date diff
 DATEDIFF(end_date, start_date)
 
--- deleting without a join
+-- insert data
+USE db_name;
+INSERT INTO employees (id, name, department, salary) 
+VALUES (1, 'John Doe', 'Engineering', 70000);
+
+-- update data
+USE db_name;
+UPDATE employees 
+SET salary = 75000 
+WHERE id = 1;
+
+-- delete data (without a join)
+USE db_name;
 DELETE FROM Person
 WHERE some_condition;
 
--- deleting with a join
+-- delete data (with a join)
+USE db_name;
 DELETE p
 FROM Person p
 INNER JOIN SomeOtherTable t ON p.some_column = t.some_column
