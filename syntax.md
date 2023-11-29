@@ -302,5 +302,56 @@ FROM Person p
 INNER JOIN SomeOtherTable t ON p.some_column = t.some_column
 WHERE some_condition;
 
+-- recursive cte
+CREATE TABLE employees (
+    employee_id INT,
+    name VARCHAR(100),
+    manager_id INT
+);
+
+INSERT INTO employees (employee_id, name, manager_id) VALUES
+(1, 'Alice', NULL),  -- CEO
+(2, 'Bob', 1),       -- work for Alice
+(3, 'Charlie', 1),   -- work for Alice
+(4, 'David', 2),     -- work for Bob
+(5, 'Eve', 3);       -- work for Charlie
+
+WITH RECURSIVE employee_hierarchy AS (
+    -- Base case
+    SELECT
+        employee_id,
+        name,
+        manager_id,
+        0 AS depth
+    FROM employees
+    WHERE manager_id IS NULL
+
+    UNION ALL
+
+    -- Recursive and Terminating conditions
+    SELECT
+        e.employee_id,
+        e.name,
+        e.manager_id,
+        eh.depth + 1
+    FROM employees e
+    INNER JOIN employee_hierarchy eh 
+    ON e.manager_id = eh.employee_id
+)
+SELECT *
+FROM employee_hierarchy
+ORDER BY depth, name;
+
+/*
++-------------+---------+------------+-------+
+| employee_id | name    | manager_id | depth |
++-------------+---------+------------+-------+
+|           1 | Alice   | NULL       |     0 |
+|           2 | Bob     | 1          |     1 |
+|           3 | Charlie | 1          |     1 |
+|           4 | David   | 2          |     2 |
+|           5 | Eve     | 3          |     2 |
++-------------+---------+------------+-------+
+*/
 ```
 
