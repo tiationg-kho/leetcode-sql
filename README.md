@@ -25,8 +25,8 @@
 | 021 | [511. Game Play Analysis I](https://leetcode.com/problems/game-play-analysis-i/)                                                                      | [MySQL](511-game-play-analysis-i.sql)                                    |
 | 022 | [2153. The Number of Passengers in Each Bus II](https://leetcode.com/problems/the-number-of-passengers-in-each-bus-ii/)                               | [MySQL](2153-the-number-of-passengers-in-each-bus-ii.sql)                |
 | 023 | [262. Trips and Users](https://leetcode.com/problems/trips-and-users/)                                                                                | [MySQL](262-trips-and-users.sql)                                         |
-| 024 | [610]()                                                                                                                                               | [MySQL]()                                                                |
-| 025 | [1378]()                                                                                                                                              | [MySQL]()                                                                |
+| 024 | [610. Triangle Judgement](https://leetcode.com/problems/triangle-judgement/)                                                                          | [MySQL](610-triangle-judgement.sql)                                      |
+| 025 | [1378. Replace Employee ID With The Unique Identifier](https://leetcode.com/problems/replace-employee-id-with-the-unique-identifier/)                 | [MySQL](1378-replace-employee-id-with-the-unique-identifier.sql)         |
 | 026 | [1251]()                                                                                                                                              | [MySQL]()                                                                |
 | 027 | [1934]()                                                                                                                                              | [MySQL]()                                                                |
 | 028 | [586]()                                                                                                                                               | [MySQL]()                                                                |
@@ -52,10 +52,3 @@
 | 048 | [1045]()                                                                                                                                              | [MySQL]()                                                                |
 | 049 | [1280]()                                                                                                                                              | [MySQL]()                                                                |
 | 050 | [569]()                                                                                                                                               | [MySQL]()                                                                |
-
-## References and Resources
-[Leetcode SQL - Everyday Data Science](https://youtube.com/playlist?list=PLtfxzVLWb-B-O3VAjxsoZYgG6d8WMnPjG&feature=shared)
-
-[SQL Tutorial - Learn SQL Query Language](https://www.1keydata.com/sql/sql.html)
-
-[Learn Complete SQL (Beginner to Advance) - techTFQ](https://youtube.com/playlist?list=PLavw5C92dz9Ef4E-1Zi9KfCTXS_IN8gXZ&feature=shared)
